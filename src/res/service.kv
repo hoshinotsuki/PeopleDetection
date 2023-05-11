@@ -1,0 +1,88 @@
+# people_detection_app.kv
+
+BoxLayout:
+    orientation: "vertical"
+
+    BoxLayout:
+        orientation: "horizontal"
+
+        Label:
+            text: "Image Path:"
+        
+        TextInput:
+            id: image_path_input
+            multiline: False
+        
+        Button:
+            text: "Detect People"
+            on_release: root.detect_people()
+
+    ScrollView:
+        GridLayout:
+            id: detection_grid
+            cols: 4
+            padding: 10
+            spacing: 10
+
+
+<PeopleDetectionApp>:
+    detection_grid: detection_grid
+
+    GridLayout:
+        cols: 1
+        padding: 10
+        spacing: 10
+
+        Label:
+            text: "People Detection App"
+            font_size: 20
+
+        Image:
+            id: image_preview
+            source: ""
+            size_hint: None, None
+            size: 300, 300
+            allow_stretch: True
+
+        BoxLayout:
+            orientation: "horizontal"
+            size_hint_y: None
+            height: "48dp"
+
+            Label:
+                text: "Detected People:"
+
+            Button:
+                text: "Clear"
+                on_release: root.clear_detections()
+
+
+<DetectionLabel@Label>:
+    size_hint: None, None
+    size: self.texture_size
+    font_size: 14
+    padding: 5, 2
+
+
+<DetectionWidget@BoxLayout>:
+    orientation: "vertical"
+    size_hint: None, None
+    size: 150, 150
+    spacing: 5
+    padding: 5
+
+    Image:
+        id: detection_image
+        source: ""
+        size_hint: None, None
+        size: 100, 100
+        allow_stretch: True
+
+    DetectionLabel:
+        id: detection_label
+
+
+<DetectionGrid@GridLayout>:
+    cols: 3
+    padding: 10
+    spacing: 10
